@@ -37,19 +37,15 @@ app.use("/api", authRoutes);
 app.use("/api", taskRoutes);
 app.use("/api", subTaskRoutes);
 
-// cron.schedule("* * * * *", () => {
-//   // console.log("running a task every minute");
-//   CalucaltePriority();
-// });
+cron.schedule("0 0 * * *", () => {
+  // Run the task at midnight
+  CalucaltePriority();
+});
 
-// cron.schedule("*/2 * * * *", () => {
-//   // console.log("running a task every minute");
-//   VoiceCallUser();
-// });
-
-CalucaltePriority();
-
-VoiceCallUser();
+cron.schedule("0 16 * * *", () => {
+  // Run the task at 4 PM
+  VoiceCallUser();
+});
 
 client.on("error", (err) => {
   console.log("Redis error: ", err);
