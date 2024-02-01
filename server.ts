@@ -27,7 +27,7 @@ app.use(express.json());
 // Enable CORS for all routes
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: ["http://localhost:3000",'https://task-app-smoky.vercel.app'],
     credentials: true,
   })
 );
