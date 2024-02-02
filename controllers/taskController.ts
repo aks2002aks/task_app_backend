@@ -79,7 +79,6 @@ async function setStatus(req: Request, res: Response) {
   try {
     const { taskId, status } = req.body;
     const userId = res.locals.userId;
-    console.log(taskId, status, userId);
 
     const updatedTask = await Task.findOneAndUpdate(
       { _id: taskId, userId },

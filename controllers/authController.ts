@@ -2,6 +2,9 @@ import { Request, Response } from "express";
 import User from "../models/user";
 import { setAsync, getAsync, delAsync } from "../redis";
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const accountSid = "AC6b86139986270ba9e10f9dcc8b837039";
 const authToken = process.env.TWILIO_AUTH_TOKEN;
@@ -9,7 +12,6 @@ const client = require("twilio")(accountSid, authToken);
 
 async function sendLoginOtp(req: Request, res: Response) {
   const { phone } = req.body;
-  console.log(phone)
   if (!phone) {
     return res
       .status(400)
@@ -25,7 +27,6 @@ async function sendLoginOtp(req: Request, res: Response) {
     }
 
     await setAsync(phone, otp, "EX", 300);
-    console.log("check")
     await client.messages
       .create({
         body: `your OTP for Task manager is : ${otp}`,
@@ -33,8 +34,6 @@ async function sendLoginOtp(req: Request, res: Response) {
         to: phone,
       })
       .then((message: any) => console.log(message.sid));
-
-      console.log("check2")
 
     res.status(200).json({ success: true, message: "OTP sent successfully" });
   } catch (error) {
@@ -69,7 +68,6 @@ async function verifyOtpForPhone(req: Request, res: Response) {
 
   try {
     const storedOTP = await getAsync(phone);
-    console.log(storedOTP, otp);
 
     if (storedOTP && storedOTP === otp) {
       // Remove the OTP from Redis after successful verification
@@ -100,7 +98,6 @@ async function verifyOtpForPhone(req: Request, res: Response) {
 
 async function checkTokenValidity(req: Request, res: Response) {
   const { token } = req.body;
-  console.log(token)
 
   if (!token) {
     return res

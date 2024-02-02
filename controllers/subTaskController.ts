@@ -47,7 +47,6 @@ async function getAllSubTasks(req: Request, res: Response) {
 async function setSubTaskStatus(req: Request, res: Response) {
   try {
     const { subTaskId, status, taskId } = req.body;
-    console.log(subTaskId, status, taskId);
     const updatedTask = await SubTask.findOneAndUpdate(
       { _id: subTaskId },
       { status },
@@ -60,7 +59,6 @@ async function setSubTaskStatus(req: Request, res: Response) {
 
     try {
       if (status == 1) {
-        console.log("here");
         const updatedTask = await Task.findOneAndUpdate(
           { _id: taskId },
           { status: "IN_PROGRESS" },
