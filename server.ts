@@ -19,15 +19,16 @@ const app = express();
 app.use(express.json());
 app.use(mongoSanitize());
 
-// Connect to MongoDB
+// Connect to MongoDB and redisDB
 connectDatabase();
 connectRedisDatabase();
+
 // Middleware
 app.use(express.json());
-// Enable CORS for all routes
+
 app.use(
   cors({
-    origin: ["http://localhost:3000",'https://task-app-smoky.vercel.app'],
+    origin: "https://task-app-smoky.vercel.app",
     credentials: true,
   })
 );
