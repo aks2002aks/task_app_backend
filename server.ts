@@ -33,24 +33,24 @@ app.use(
   })
 );
 
-app.use((req, res, next) => {
-  res.setHeader(
-    "Access-Control-Allow-Origin",
-    "https://task-app-smoky.vercel.app"
-  );
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, OPTIONS"); // Include PUT method
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  res.setHeader("Access-Control-Allow-Credentials", "true"); // If your requests include credentials like cookies
+// app.use((req, res, next) => {
+//   res.setHeader(
+//     "Access-Control-Allow-Origin",
+//     "https://task-app-smoky.vercel.app"
+//   );
+//   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, OPTIONS"); // Include PUT method
+//   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+//   res.setHeader("Access-Control-Allow-Credentials", "true"); // If your requests include credentials like cookies
 
-  // Handle preflight requests
-  if (req.method === "OPTIONS") {
-    // Preflight request response
-    return res.sendStatus(200);
-  }
+//   // Handle preflight requests
+//   if (req.method === "OPTIONS") {
+//     // Preflight request response
+//     return res.sendStatus(200);
+//   }
 
-  // Pass control to the next middleware
-  next();
-});
+//   // Pass control to the next middleware
+//   next();
+// });
 
 // Routes
 app.use("/api", authRoutes);
